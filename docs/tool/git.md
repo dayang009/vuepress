@@ -116,7 +116,7 @@ $ make all && make install
 
 安装完 Git 之后，要做的第一件事就是设置你的用户名和邮件地址。 这一点很重要，因为每一个 Git 提交都会使用这些信息，它们会写入到你的每一次提交中，不可更改：
 
-```sh
+```bash
 git config --global user.name "ZhangSan"
 
 git config --global user.email "ZhangSan@qq.com"
@@ -124,7 +124,7 @@ git config --global user.email "ZhangSan@qq.com"
 
 指定换行符和其他配置项
 
-``` sh
+``` bash
 ## Windows系统执行
 git config --global core.autocrlf true
 ## MacOS or Linux 系统执行
@@ -204,7 +204,7 @@ git config --list
 
 一个 `.gitignore` 文件的例子：
 
-```sh
+```bash
 # 忽略所有的 .a 文件
 *.a
 
@@ -252,19 +252,19 @@ doc/**/*.pdf
 
 另外一种情况是，我们想把文件从 Git 仓库中删除（亦即从暂存区域移除），但仍然希望保留在当前工作目录中。 换句话说，你想让文件保留在磁盘，但是并不想让 Git 继续跟踪。 当你忘记添加 `.gitignore` 文件，不小心把一个很大的日志文件或一堆 `.a` 这样的编译生成文件添加到暂存区时，这一做法尤其有用。 为达到这一目的，使用 `--cached` 选项：
 
-```sh
+```bash
 git rm --cached README
 ```
 
 `git rm` 命令后面可以列出文件或者目录的名字，也可以使用 `glob` 模式。比如：
 
-```sh
+```bash
 git rm log/\*.log
 ```
 
 注意到星号 `*` 之前的反斜杠 `\`， 因为 Git 有它自己的文件模式扩展匹配方式，所以我们不用 shell 来帮忙展开。 此命令删除 `log/` 目录下扩展名为 `.log` 的所有文件。 类似的比如：
 
-```sh
+```bash
 git rm \*~
 ```
 
@@ -272,13 +272,13 @@ git rm \*~
 
 #### 移动文件
 
-``` sh
+``` bash
 git mv file-from file-to
 ```
 
 其实，运行 `git mv` 就相当于运行了下面三条命令：
 
-```sh
+```bash
 mv README.md README
 git rm README.md
 git add README
@@ -290,7 +290,7 @@ git add README
 
 在提交了若干更新，又或者克隆了某个项目之后，你也许想回顾下提交历史。 完成这个任务最简单而又有效的工具是 `git log` 命令。
 
-``` sh
+``` bash
 ## 显示最近5次提交的信息，每次提交用一行展示
 git log --oneline -5
 
@@ -308,7 +308,7 @@ git log --oneline --graph
 
 有时候我们提交完了才发现漏掉了几个文件没有添加，或者提交信息写错了。 此时，可以运行带有 `--amend` 选项的提交命令来重新提交：
 
-```sh
+```bash
 $ git commit --amend
 ```
 
@@ -318,7 +318,7 @@ $ git commit --amend
 
 例如，你提交后发现忘记了暂存某些需要的修改，可以像下面这样操作：
 
-```sh
+```bash
 $ git commit -m 'initial commit'
 $ git add forgotten_file
 $ git commit --amend
@@ -336,7 +336,7 @@ $ git commit --amend
 
 接下来的两个小节演示如何操作暂存区和工作目录中已修改的文件。 这些命令在修改文件状态的同时，也会提示如何撤消操作。 例如，你已经修改了两个文件并且想要将它们作为两次独立的修改提交， 但是却意外地输入 `git add *` 暂存了它们两个。如何只取消暂存两个中的一个呢？ `git status` 命令提示了你：
 
-```sh
+```bash
 $ git add *
 $ git status
 On branch master
@@ -349,7 +349,7 @@ Changes to be committed:
 
 在 “Changes to be committed” 文字正下方，提示使用 `git reset HEAD <file>...` 来取消暂存。 所以，我们可以这样来取消暂存 `CONTRIBUTING.md` 文件：
 
-```sh
+```bash
 $ git reset HEAD CONTRIBUTING.md
 Unstaged changes after reset:
 M	CONTRIBUTING.md
@@ -375,7 +375,7 @@ Changes not staged for commit:
 
 刚拉取下来的文件改废了怎么办，运行以下命令撤销之前的修改
 
-``` sh
+``` bash
 git checkout -- README.md
 ```
 
@@ -397,7 +397,7 @@ git checkout -- README.md
 
 `git remote add <shortname> <url>`
 
-``` sh
+``` bash
 git remote add origin https://github.com/...
 
 可以在命令行中使用origin字符串代替整个URL
@@ -405,7 +405,7 @@ git remote add origin https://github.com/...
 
 #### 从远程仓库中抓取与拉取
 
-``` sh
+``` bash
 $ git fetch <remote>
 ```
 
@@ -424,7 +424,7 @@ $ git fetch <remote>
 想要将 master 分支推送到 origin 服务器时（再次说明，克隆时通常会自动帮你设置好那两个名字）， 那么
 运行这个命令就可以将你所做的备份到服务器：
 
-``` sh
+``` bash
 $ git push origin master
 ```
 
@@ -434,7 +434,7 @@ $ git push origin master
 
 #### 查看某个远程仓库
 
-``` sh
+``` bash
 $ git remote show <remote>
 * remote origin
 Fetch URL: https://github.com/schacon/ticgit
@@ -458,7 +458,7 @@ master pushes to master (up to date)
 你可以运行 git remote rename 来修改一个远程仓库的简写名。 例如，想要将 pb 重命名为 paul，可以用
 git remote rename 这样做：
 
-``` sh
+``` bash
 $ git remote rename pb paul
 $ git remote
 origin
@@ -471,7 +471,7 @@ paul
 如果因为一些原因想要移除一个远程仓库——你已经从服务器上搬走了或不再想使用某一个特定的镜像了， 又或
 者某一个贡献者不再贡献了——可以使用 git remote remove 或 git remote rm ：
 
-``` sh
+``` bash
 $ git remote remove paul
 $ git remote
 origin
@@ -513,7 +513,7 @@ Git 的分支，其实本质上仅仅是指向提交对象的可变指针。 Git
 
 使用命令查看项目分叉历史
 
-``` sh
+``` bash
 $ git log --oneline --decorate --graph --all
 * c2b9e (HEAD, master) made other changes
 | * 87ab2 (testing) made a change
@@ -537,7 +537,7 @@ $ git log --oneline --decorate --graph --all
 切换到master主分支后，执行git checkout -b hotfix
 问题解决后，切换到master主分支，然后将hotfix分支合并到master分支上去
 
-``` sh
+``` bash
 $ git checkout master
 $ git merge hotfix
 Updating f42c576..3a0874c
@@ -551,7 +551,7 @@ index.html | 2 ++
 hotfix修复后，你准备回到iss53分支继续工作。
 然而在这之前，你应该删除掉hotfix分支，因为不再需要它了，master分支已经指向了同一位置。
 
-``` sh
+``` bash
 $ git branch -d hotfix
 Deleted branch hotfix (3a0874c).
 ```

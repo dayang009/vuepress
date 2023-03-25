@@ -72,7 +72,7 @@ export default defineUserConfig({
 
   ],
     // Public文件路径
-    logo: '/images/hero.png',
+    logo: '/images/hero.jpg',
     logoDark: '',
     repo: 'https://gitee.com',
     

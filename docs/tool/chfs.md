@@ -18,16 +18,16 @@
 
 ## 2.下载
 
-官方网址：http://iscute.cn/chfs
+官方网址：[http://iscute.cn/chfs](http://iscute.cn/chfs)
 
-Windows版本：http://iscute.cn/tar/chfs/2.0/gui-chfs-windows.zip
+Windows版本：[http://iscute.cn/tar/chfs/2.0/gui-chfs-windows.zip](http://iscute.cn/tar/chfs/2.0/gui-chfs-windows.zip)
 
 Linux版本：（执行`uname -a`查看系统架构，若下载不匹配的版本则无法运行）
 
-- x86架构CPU下载链接：http://iscute.cn/tar/chfs/2.0/chfs-linux-386-2.0.zip
-- Arm架构CPU下载链接：http://iscute.cn/tar/chfs/2.0/gui-chfs-windows.zip
+- x86架构CPU下载链接：[http://iscute.cn/tar/chfs/2.0/chfs-linux-amd64-2.0.zip](http://iscute.cn/tar/chfs/2.0/chfs-linux-amd64-2.0.zip)
+- Arm架构CPU下载链接：[http://iscute.cn/tar/chfs/2.0/chfs-linux-arm64-2.0.zip](http://iscute.cn/tar/chfs/2.0/chfs-linux-arm64-2.0.zip)
 
-Mac版本：http://iscute.cn/tar/chfs/2.0/chfs-mac-amd64-2.0.zip
+Mac版本：[http://iscute.cn/tar/chfs/2.0/chfs-mac-amd64-2.0.zip](http://iscute.cn/tar/chfs/2.0/chfs-mac-amd64-2.0.zip)
 
 ## 3.使用
 
@@ -48,8 +48,8 @@ mkdir -p /opt/chfs/logs
 mkdir /myshare
 cd /opt/chfs
 ## 注意不同CPU架构链接不同
-wget http://iscute.cn/tar/chfs/2.0/chfs-linux-386-2.0.zip
-unzip chfs-linux-386-2.0.zip
+wget http://iscute.cn/tar/chfs/2.0/chfs-linux-amd64-2.0.zip
+unzip chfs-linux-amd64-2.0.zip
 ## 赋予执行权限
 sudo chmod 777 ./chfs
 ## 创建配置文件

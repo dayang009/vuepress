@@ -53,23 +53,11 @@ Git 有三种状态，你的文件可能处于其中之一：
 
 
 ```bash
-## 可以使用对应的命令来安装依赖(根据你的系统二选一执行)
-  
-sudo dnf install -y autoconf automake
-sudo dnf install -y libtool
-sudo dnf install -y curl curl-devel
-sudo dnf install -y expat expat-devel
-sudo dnf install -y gettext gettext-devel
-sudo dnf install -y openssl openssl-devel
-sudo dnf install -y perl perl-devel
-sudo dnf install -y zlib zlib-devel
-sudo dnf install -y gcc-c++
-sudo dnf install -y perl-ExtUtils-MakeMaker
-```
-
-``` bash
-sudo apt-get install dh-autoreconf libcurl4-gnutls-dev libexpat1-dev \
-  gettext libz-dev libssl-dev
+dnf install -y vim wget net-tools yum-utils xorg-x11-xauth \
+autoconf automake libtool make tcl bash-completion \
+curl-devel expat-devel gettext-devel systemd-devel \
+openssl-devel perl-devel zlib-devel gcc-c++ gcc perl-ExtUtils-MakeMaker \
+rpcbind nfs-utils
 ```
 
 
@@ -78,22 +66,22 @@ sudo apt-get install dh-autoreconf libcurl4-gnutls-dev libexpat1-dev \
 
 获取最新发布的`tar.gz`包，后续有新版本时，只替换版本号即可
 
-**下载地址1**：https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.38.0.tar.gz
+**下载地址1**：[https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.40.0.tar.gz](https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.40.0.tar.gz)
 
 
 
-**下载地址2**：https://mirrors.kernel.org/pub/software/scm/git/git-2.38.0.tar.gz
+**下载地址2**：[https://mirrors.kernel.org/pub/software/scm/git/git-2.40.0.tar.gz](https://mirrors.kernel.org/pub/software/scm/git/git-2.40.0.tar.gz)
 
 
 
 接着，编译并安装：
 
 ```bash
-$ tar -zxf git-2.38.0.tar.gz
-$ cd git-2.38.0
-$ make configure
-$ ./configure --prefix=/usr
-$ make all && make install
+tar -zxf git-2.40.0.tar.gz
+cd git-2.40.0
+make configure
+./configure --prefix=/usr
+make all && make install
 ```
 
 > 因为我们安装了autotools工具，所以不需要配置环境变量
@@ -619,4 +607,120 @@ git restore <changed_file>
 | Staging（暂存区） | Init | Change | git status -> Changes to be committed |
 | Local（本地）     | Init |        |                                       |
 | Remote（远程）    | Init |        |                                       |
+
+
+
+
+
+## 删除Git大文件
+
+``` bash
+# 搜索
+git rev-list --all | xargs -rL1 git ls-tree -r --long | sort -uk3 | sort -rnk4 | head -10
+
+# 删除
+git filter-branch --tree-filter "rm -f big.file" -- --all
+
+# 推送
+git push -f --all
+```
+
+
+
+## 忽略文件
+
+``` bash
+*.class
+*.log
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, 
+hs_err_pid*
+
+
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### others ###
+*/.DS_Store
+.DS_Store
+
+
+
+
+
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+.DS_Store
+dist
+dist-ssr
+coverage
+*.local
+
+/cypress/videos/
+/cypress/screenshots/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+```
 

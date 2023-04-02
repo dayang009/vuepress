@@ -7,7 +7,11 @@
 `linux`系统安装
 
 ``` bash
-$ yum install -y lrzsz
+yum install -y lrzszdnf install -y vim wget net-tools yum-utils xorg-x11-xauth \
+autoconf automake libtool make tcl bash-completion \
+curl-devel expat-devel gettext-devel systemd-devel \
+openssl-devel perl-devel zlib-devel gcc-c++ gcc perl-ExtUtils-MakeMaker \
+rpcbind nfs-utils lrzsz
 ```
 
 命令解释：

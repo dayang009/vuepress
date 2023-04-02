@@ -45,7 +45,8 @@ export default defineUserConfig({
           children: [
               '/tool/git.md',
               '/tool/linux.md',
-              '/tool/chfs.md'
+              '/tool/chfs.md',
+              '/tool/nginx.md'
           ],
       },
       // 控制元素何时被激活

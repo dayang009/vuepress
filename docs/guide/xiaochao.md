@@ -117,7 +117,7 @@ indentation-style=tabs
 ``` java
 // @formatter:off
 
-... 这是不希望被格式化的代码，例如：枚举类等...
+... 这是不希望被格式化的代码,例如:枚举类等...
 
 // @formatter:on
 ```

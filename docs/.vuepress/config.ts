@@ -46,9 +46,13 @@ export default defineUserConfig({
               '/tool/git.md',
               '/tool/linux.md',
               '/tool/chfs.md',
-              '/tool/nginx.md'
+              '/tool/nginx.md',
           ],
       },
+        {
+            text: '小抄',
+            link: '/guide/xiaochao.md'
+        },
       // 控制元素何时被激活
       {
           text: 'Java 2',
@@ -76,6 +80,6 @@ export default defineUserConfig({
     logo: '/images/hero.jpg',
     logoDark: '',
     repo: 'https://gitee.com',
-    
+
   }),
 })

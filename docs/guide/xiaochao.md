@@ -1,4 +1,80 @@
-## 一、格式化代码
+## 四、删除maven仓库中的无用文件
+
+### Linux 环境(delRepo.sh)
+
+``` bash
+echo search ing ...
+find . -name "*lastUpdated" | xargs rm -rf
+find . -name "_remote.repositories" | xargs rm -rf
+echo The End.
+```
+
+### Windows 环境(delRepo.cmd)
+
+``` bash
+set REPOSITORY_PATH=C:\Users\%UserName%\.m2\repository
+rem Searching ...
+for /f "delims=" %%i in ('dir /b /s "%REPOSITORY_PATH%\*_remote.repositories*"') do (
+    del /s /q %%i
+)
+for /f "delims=" %%i in ('dir /b /s "%REPOSITORY_PATH%\*lastUpdated*"') do (
+    del /s /q %%i
+)
+rem Delete Success !!!
+pause 
+```
+
+
+
+
+
+
+
+## 三、下载 Jar 包依赖导入离线环境
+
+``` bash
+mvn -f pom.xml dependency:copy-dependencies
+```
+
+
+
+``` xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>demo</artifactId>
+    <version>1.0</version>
+
+    <properties>
+        <java.version>8</java.version>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.0.32</version>
+        </dependency>
+
+
+    </dependencies>
+
+</project>
+```
+
+
+
+
+
+## 二、格式化代码
 
 
 
@@ -132,7 +208,7 @@ indentation-style=tabs
 
 
 
-## 二、MySQL URL 
+## 一、MySQL URL 
 
 `jdbc:mysql://127.0.0.1:3306/my_db?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true`
 

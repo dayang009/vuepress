@@ -557,10 +557,6 @@ $ git commit -a -m 'finished the new footer [issue 53]'
 
 
 
-![继续在 iss53 分支上的工作](https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4670/image-20221005223736492.png)
-
-
-
 
 
 
@@ -585,10 +581,37 @@ $ git commit -a -m 'finished the new footer [issue 53]'
 
 本地文件改废了，要撤销操作，也就是说，把硬盘上对这个文件的修改撤销
 
-```bash
-git checkout <changed_file>
-git restore <changed_file>
-```
+`git checkout <changed_file>` 或者 `git restore <changed_file>`
+
+
+
+如果将改动添加到了暂存区，也就是相当于执行了 `git add .`命令
+
+若想要把文件从暂存区移除，但是还保留硬盘上的修改，也就是我们想撤销这个`git add ` 这个命令，
+
+执行 `git reset <changed_file>` 或者 `git restore --staged <changed_file>`
+
+这个命令比较安全，只会把文件从暂存区移出，让你`commit`时候不在提交这个文件，不会对硬盘上的源代码进行修改。
+
+如果你就是想撤销掉所有的修改，包括**暂存区**和**磁盘**上的修改，则执行：`git checkout HEAD <changed_file>`命令
+
+这个`HEAD`在表示最近的一次`commit`，这个操作会丢失硬盘上的修改，操作时候要小心。
+
+
+
+如果在把文件添加到暂存区后，使用了`git commit`操作，那你的修改就正式成为了一个`commit`，并且被放到了`Local Git`中
+
+在这种情况下，如果只是想撤销这个`commit`，则可以使用：`git reset --soft HEAD~1`，这意味着你的`Local Git`中的状态会变为前一个，但硬盘上的文件不会变化，这个变化也会保留到暂存区，只是`Local Git`中的`Commit`被你干掉了。
+
+如果没有`--soft`这个选项，则表示在`Local Git`中撤销`commit`这个操作，并且撤销在暂存区的修改，磁盘上的文件不会被修改，命令是：
+
+`git reset HEAD~1` or `git reset --mixed HEAD~1`，换句话说，他会同时撤销你的 `git commit` 和 `git add`
+
+当然还可以更近一步，使用`git reset --hard HEAD~1`，**他会把修改从本地仓库，暂存区和磁盘上全部删除，慎用！！！**
+
+
+
+
 
 
 
@@ -607,6 +630,30 @@ git restore <changed_file>
 | Staging（暂存区） | Init | Change | git status -> Changes to be committed |
 | Local（本地）     | Init |        |                                       |
 | Remote（远程）    | Init |        |                                       |
+
+
+
+## GitHub工作流
+
+首先从远端克隆代码：`git clone https://127.0.0.1`
+
+克隆到本地后，第一件事就是建立一个新的`feature branch`，使用`git cheakout -b dev`
+
+在代码改变，`add`, `commit` 以后，要推送到远端仓库，`git push origin dev`这时候远端仓库会多出一个`dev`分支
+
+比较常见的一种情况是这是`main`分支中的代码被别人更新了，要验证我们刚才修改的代码在新版main分支是否可以用，需要把`main`分支的`update`同步到`dev`分支中，回到主分支进行更新：`git cheakout main` and `git pull origin main`
+
+接着回到`dev`分支中进行变基操作：`git cheakout dev ` and `git rebase main`，（如果出现冲突用图形化界面进行解决）
+
+再推送到远端仓库，由于我们使用了`rebase`操作，则需要强制推送，`git push -f origin dev`
+
+接着提交`Pull Request` 俗称`PR`，将`dev`分支的代码合并到`main`分支中，`Squash and merge`将多个`dev`提交合并为一个，使`main`分支提交信息变得更加简洁，合并以后一般可以删除`dev`分支了。当然，本地的`dev`分支也可以删掉了。
+
+回到主分支：`git cheakout main`, 执行删除命令`git branch -D dev`
+
+再更新`main`分支的代码：`git pull origin main`
+
+
 
 
 
@@ -629,7 +676,7 @@ git push -f --all
 
 ## 忽略文件
 
-``` bash
+``` txt
 *.class
 *.log
 *.ctxt
@@ -687,10 +734,6 @@ build/
 ### others ###
 */.DS_Store
 .DS_Store
-
-
-
-
 
 
 # Logs

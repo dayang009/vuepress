@@ -27,6 +27,12 @@ export default defineUserConfig({
                     '/spring/spring-mvc.md',
                 ],
             },
+            {
+                text: '文章',
+                children:[
+                    '/blog/design.md'
+                ]
+            },
             // 嵌套 Group - 最大深度为 2
             {
                 text: 'Java',

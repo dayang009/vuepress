@@ -30,7 +30,8 @@ export default defineUserConfig({
             {
                 text: '文章',
                 children:[
-                    '/blog/design.md'
+                    '/blog/design.md',
+                    '/blog/banner.md'
                 ]
             },
             // 嵌套 Group - 最大深度为 2

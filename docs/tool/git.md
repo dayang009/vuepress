@@ -131,6 +131,9 @@ $ ssh-copy-id -i ~/.ssh/id_rsa.pub -p 22 root@192.168.xxx.xxx
 ## 设置初始化仓库分支名称（main or master）
 git config --global init.defaultBranch main
 
+## 跳过Git的SSL的证书验证（可选）
+git config --global http.sslverify false
+
 ## 检查配置信息
 git config --list
 ```

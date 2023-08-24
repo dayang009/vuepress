@@ -121,6 +121,9 @@ git config --global core.autocrlf input
 ## 配置文本编辑器（一般默认Vim即可）
 git config --global core.editor vim
 
+## 文件夹大小写敏感
+git config --global core.ignorecase false
+
 
 ## 配置SSH, 输入指令，连续敲多次回车键
 ssh-keygen -t ed25519 -C "hello@qq.com"

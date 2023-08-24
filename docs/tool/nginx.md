@@ -6,9 +6,9 @@
 
 官网下载链接：
 
-Linux版本：http://nginx.org/download/nginx-1.22.0.tar.gz
+Linux版本：http://nginx.org/download/nginx-1.22.1.tar.gz
 
-Windows版本：http://nginx.org/download/nginx-1.22.0.zip
+Windows版本：http://nginx.org/download/nginx-1.22.1.zip
 
 
 
@@ -41,8 +41,8 @@ yum install -y autoconf automake
 解压缩
 
 ``` bash
-$ tar -zxvf nginx-1.22.0.tar.gz
-$ cd nginx-1.22.0
+$ tar -zxvf nginx-1.22.1.tar.gz
+$ cd nginx-1.22.1
 
 ## 配置信息
 $ ./configure --prefix=/usr/local/nginx --with-http_ssl_module --with-http_v2_module --with-stream

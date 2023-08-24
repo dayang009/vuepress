@@ -2,13 +2,13 @@
 
 
 
-官网：http://nginx.org/
+官网：[https://nginx.org](http://nginx.org)
 
 官网下载链接：
 
-Linux版本：http://nginx.org/download/nginx-1.22.1.tar.gz
+Linux版本：[https://nginx.org/download/nginx-1.22.1.tar.gz](https://nginx.org/download/nginx-1.22.1.tar.gz)
 
-Windows版本：http://nginx.org/download/nginx-1.22.1.zip
+Windows版本：[https://nginx.org/download/nginx-1.22.1.zip](https://nginx.org/download/nginx-1.22.1.zip)
 
 
 

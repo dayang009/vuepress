@@ -1,0 +1,41 @@
+image: node:14.21.3
+
+stages:
+- build
+- test
+- deploy
+
+cache:
+  paths:
+  - node_modules
+
+build-job:
+  stage: build
+  script:
+  - npm install
+  - npm run build
+
+test-job:
+  stage: test
+  script:
+  - git --version
+  - node -v
+  - npm -v
+
+deploy-job-dev:
+  stage: deploy
+  script:
+  - npm install
+  - npm run build
+  artifacts:
+    paths:
+    - ./docs/.vuepress/dist
+
+deploy-job-prod:
+  stage: deploy
+  script:
+  - npm install
+  - npm run build
+  when: manual
+
+

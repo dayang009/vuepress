@@ -113,3 +113,42 @@ docker-compose --version
 
 
 
+## JDK, Maven, Node 配置
+
+node配置加速镜像
+
+``` bash
+在文件中：node-v16.20.2-linux-x64\etc\npmrc
+
+## 添加如下内容
+registry=https://registry.npmmirror.com/
+
+## 查看配置列表
+npm config ls -l
+```
+
+
+
+配置环境变量时，官方**不建议**直接修改`/etc/profile`文件，而是在`/etc/profile.d`目录下建立自定义的`custom.sh`文件（如下）配置，文件名随意，当刷新环境变量时，会执行次目录下所有的`.sh`文件
+
+``` bash
+vim /etc/profile.d/dayang.sh
+```
+
+配置并刷新环境变量：`sudo source /etc/profile`
+
+``` bash
+export JAVA_HOME=/usr/local/jdk1.8.0_381
+export PATH=$JAVA_HOME/bin:$PATH
+export CLASSPATH=.:$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib
+
+
+export M2_HOME=/usr/local/apache-maven-3.6.3
+export PATH=$M2_HOME/bin:$PATH
+
+export NODE_HOME=/usr/local/node-v16.20.2-linux-x64
+export PATH=$NODE_HOME/bin:$PATH
+```
+
+
+

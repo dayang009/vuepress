@@ -1,4 +1,4 @@
-# Nexus2
+# Nexus
 
 
 
@@ -150,4 +150,139 @@ java -jar indexer-cli-5.1.1.jar
 ``` bash
 luke.sh -ro -index central-lucene-index
 ```
+
+
+
+---
+
+nexus2.x: https://help.sonatype.com/repomanager2/download
+
+nexus3.x: https://www.sonatype.com/download-nexus-repo-oss
+
+https://download.sonatype.com/nexus/3/nexus-3.61.0-02-unix.tar.gz
+
+``` bash
+docker run -itd \
+    --name nexus3 \
+    --restart unless-stopped \
+    --privileged=true \
+    -p "8081":"8081" \
+    -p "8443":"8443" \
+    -v /docker/nexus3/nexus-data:/nexus-data \
+    sonatype/nexus3:3.61.0
+```
+
+
+
+``` yaml
+version: "3.8"
+
+services:
+  nexus:
+    image: sonatype/nexus3:3.61.0
+    container_name: nexus3
+    restart: unless-stopped
+    privileged: true
+    ports:
+    - "8081:8081"
+    - "8443:8443"
+    volumes:
+    - ./nexus-data:/nexus-data
+```
+
+
+
+### 配置 HTTPS
+
+生成秘钥
+
+github地址：https://github.com/FiloSottile/mkcert
+
+下载软件的链接：
+
+https://dl.filippo.io/mkcert/latest?for=linux/amd64
+
+https://dl.filippo.io/mkcert/v1.4.4?for=windows/amd64
+
+
+
+``` bash
+## 安装
+mkcert -install
+
+## 生产的根证书位置
+/root/.local/share/mkcert
+
+## 生成证书
+mkcert example.com "*.example.com" example.test localhost 127.0.0.1 ::1
+
+## 生产 p12 格式的证书
+./mkcert -pkcs12 "*.dayang.com" "127.0.0.1" "localhost"
+
+# 转换格式
+keytool -importkeystore \
+    -srckeystore _wildcard.dayang.com.p12 \
+    -destkeystore keystore.jks \
+    -srcstoretype pkcs12 \
+    -deststoretype JKS \
+    -srcstorepass changeit \
+    -deststorepass password
+
+
+    
+# 迁移到行业标准格式 PKCS12，密码先输入 password，在输入 changeit
+keytool -importkeystore -srckeystore keystore.jks -destkeystore keystore.jks -deststoretype pkcs12 
+
+## 解决问题的网址
+https://magicmonster.com/kb/prg/java/ssl/pkix_path_building_failed/
+
+# 关键步骤，将根证书导入jdk环境中去 alias 设置别名
+keytool -import -alias maven.dayang.com -keystore \Java\jdk8\jre\lib\security\cacerts -file rootCA.crt
+
+
+```
+
+查看根证书生成的位置: `./mkcert -CAROOT`
+
+有两个文件：rootCA-key.pem 和 rootCA.pem
+
+把 rootCA.pem 更改后缀为 rootCA.crt 安装到 Windows 电脑中 certmgr.msc
+
+导入Linux系统中
+
+``` bash
+# 将CA证书放到这个目录下
+cp -a rootCA.pem /etc/pki/ca-trust/source/anchors
+
+# 执行更新命令
+sudo /usr/bin/update-ca-trust
+```
+
+
+
+### nuxus3启动HTTPS链接
+
+1. 创建一个 Java 密钥库文件，其中 `$data-dir/etc/ssl/keystore.jks` 包含要使用的 Jetty SSL 证书。
+2. 编辑 `$data-dir/etc/nexus.properties`文件并保存
+
+``` properties
+# Jetty section
+# 根据实际情况修改下边两个端口
+application-port=8081
+application-port-ssl=8443
+application-host=0.0.0.0
+nexus-args=${jetty.etc}/jetty.xml,${jetty.etc}/jetty-http.xml,${jetty.etc}/jetty-https.xml,${jetty.etc}/jetty-requestlog.xml
+nexus-context-path=/${NEXUS_CONTEXT}
+
+# Nexus section
+nexus-edition=nexus-pro-edition
+nexus-features=\
+ nexus-pro-feature
+
+nexus.hazelcast.discovery.isEnabled=true
+ssl.etc=${karaf.data}/etc/ssl
+
+```
+
+
 

@@ -55,7 +55,7 @@ export default defineUserConfig({
                     '/tool/linux.md',
                     '/tool/chfs.md',
                     '/tool/nginx.md',
-                    '/tool/nexus2.md',
+                    '/tool/nexus.md',
                     '/tool/docker.md'
                 ],
             },

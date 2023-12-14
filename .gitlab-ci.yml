@@ -19,12 +19,12 @@ cache:
 #    paths:
 #    - /docs/.vuepress/dist
 
-test-job:
-  stage: test
-  script:
-  - git --version
-  - node -v
-  - npm -v
+#test-job:
+#  stage: test
+#  script:
+#  - git --version
+#  - node -v
+#  - npm -v
 
 deploy-job-dev:
   stage: deploy

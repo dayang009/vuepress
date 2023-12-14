@@ -1,4 +1,4 @@
-image: node:14.21.3
+image: node:18.19.0-alpine
 
 stages:
 - build
@@ -8,12 +8,17 @@ stages:
 cache:
   paths:
   - node_modules
+  - build
 
 build-job:
   stage: build
   script:
   - npm install
   - npm run build
+  # 制品目录
+  artifacts:
+    paths:
+    - /docs/.vuepress/dist
 
 test-job:
   stage: test
@@ -25,8 +30,7 @@ test-job:
 deploy-job-dev:
   stage: deploy
   script:
-  - npm install
-  - npm run build
+  - sshpass -p $PWD ssh root@$DYIP "pwd;cd /opt/vuepress;git pull;npm install;npm run build"
   artifacts:
     paths:
     - ./docs/.vuepress/dist
@@ -37,5 +41,3 @@ deploy-job-prod:
   - npm install
   - npm run build
   when: manual
-
-

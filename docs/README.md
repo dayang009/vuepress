@@ -3,7 +3,7 @@ home: true
 heroImage: /images/logo.png
 heroImageDark: /images/logo.png
 actions:
-  - text: 快速上脚
+  - text: 快速上手
     link: /guide/getting-started.html
     type: primary
   - text: 项目简介

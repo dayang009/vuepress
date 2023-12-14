@@ -19,15 +19,16 @@ cache:
 #    paths:
 #    - /docs/.vuepress/dist
 
-#test-job:
-#  stage: test
-#  script:
-#  - git --version
-#  - node -v
-#  - npm -v
+test-job:
+  stage: test
+  script:
+  - git --version
+  - node -v
+  - npm -v
 
 deploy-job-dev:
   stage: deploy
+  image: ringcentral/sshpass:latest
   script:
   - sshpass -p $PWD ssh root@$DYIP "pwd;cd /opt/vuepress;git pull;npm install;npm run build"
   artifacts:

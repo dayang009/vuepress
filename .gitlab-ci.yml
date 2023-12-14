@@ -2,38 +2,33 @@ image: node:18.19.0
 
 stages:
 - build
-- test
 - deploy
 
 cache:
   paths:
   - node_modules
-  - build
 
-#build-job:
-#  stage: build
-#  script:
-#  - npm install
-#  - npm run build
-#  artifacts:
-#    paths:
-#    - /docs/.vuepress/dist
-
-test-job:
-  stage: test
+build-job:
+  stage: build
   script:
-  - git --version
-  - node -v
-  - npm -v
+  - npm install
+  - npm run build
+  artifacts:
+    paths:
+    - /docs/.vuepress/dist
+
 
 deploy-job-dev:
   stage: deploy
   image: ringcentral/sshpass:latest
   script:
-  - sshpass -p $PWD ssh root@$DYIP "pwd;cd /opt/vuepress;git pull;npm install;npm run build"
-  artifacts:
-    paths:
-    - ./docs/.vuepress/dist
+  - ls
+  - pwd
+  - sshpass -p $PWD ssh -o StrictHostKeyChecking=no root@$DYIP "pwd;ls;"
+  - sshpass -p $PWD ssh root@$SERVER_IP
+  - sshpass -p $PWD scp -r ./* root@$SERVER_IP:/opt/temp
+  only:
+  - main
 
 deploy-job-prod:
   stage: deploy

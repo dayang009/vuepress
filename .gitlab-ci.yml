@@ -1,4 +1,4 @@
-image: node:18.19.0-alpine
+#image: node:18.19.0-alpine
 
 stages:
 - build
@@ -10,15 +10,14 @@ cache:
   - node_modules
   - build
 
-build-job:
-  stage: build
-  script:
-  - npm install
-  - npm run build
-  # 制品目录
-  artifacts:
-    paths:
-    - /docs/.vuepress/dist
+#build-job:
+#  stage: build
+#  script:
+#  - npm install
+#  - npm run build
+#  artifacts:
+#    paths:
+#    - /docs/.vuepress/dist
 
 test-job:
   stage: test
